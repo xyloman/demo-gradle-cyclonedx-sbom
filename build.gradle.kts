@@ -34,20 +34,20 @@ tasks.withType<Test> {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "xyloman"
-            artifactId = "demo-gradle-cyclonedx-sbom"
-            version = "${version}"
+//            groupId = "xyloman"
+//            artifactId = "demo-gradle-cyclonedx-sbom"
+//            version = "${version}"
 
             from(components["java"])
+        }
+    }
 
-            repositories {
-                maven {
-                    url = uri("https://maven.pkg.github.com/")
-                    credentials {
-                        username = System.getenv("GITHUB_ACTOR")
-                        password = System.getenv("GITHUB_TOKEN")
-                    }
-                }
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/xyloman/demo-gradle-cyclonedx-sbom")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
