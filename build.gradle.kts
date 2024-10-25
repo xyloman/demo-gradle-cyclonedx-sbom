@@ -33,12 +33,8 @@ tasks.withType<Test> {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
-//            groupId = "xyloman"
-//            artifactId = "demo-gradle-cyclonedx-sbom"
-//            version = "${version}"
-
-            from(components["java"])
+        create<MavenPublication>("bootJava") {
+            artifact(tasks.named("bootJar"))
         }
     }
 
