@@ -60,7 +60,7 @@ jobs:
         sbom-path: './build/reports/application.cdx.json'
 
     - name: Verify JAR attestation
-      run: gh attestation verify ./build/libs/demo-0.0.1-SNAPSHOT.jar --repo ${{ github.repository }}
+      run: gh attestation verify build/libs/demo-0.0.1-SNAPSHOT.jar --repo ${{ github.repository }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -86,7 +86,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          JAR_FILE="./build/libs/demo-0.0.1-SNAPSHOT.jar"
+          JAR_FILE=build/libs/demo-0.0.1-SNAPSHOT.jar
 
     - name: Generate Image Attestation
       uses: actions/attest-build-provenance@v1
