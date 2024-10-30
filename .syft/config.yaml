@@ -1,0 +1,4 @@
+parallelism: 2
+select-catalogers:
+  - "-java"
+  - "+sbom-cataloger"
