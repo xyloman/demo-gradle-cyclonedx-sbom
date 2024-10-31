@@ -1,3 +1,5 @@
+output:
+  - cyclonedx-json
 parallelism: 2
 select-catalogers:
   - "-java"
