@@ -85,8 +85,6 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
         build-args: |
           JAR_FILE=build/libs/demo-0.0.1-SNAPSHOT.jar
 
