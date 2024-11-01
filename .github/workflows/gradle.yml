@@ -101,7 +101,6 @@ jobs:
         image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
         format: 'cyclonedx-json'
         output-file: 'image.cdx.json'
-        dependency-snapshot: true
 
     - name: Generate Image SBOM Attestation
       uses: actions/attest-sbom@v1
