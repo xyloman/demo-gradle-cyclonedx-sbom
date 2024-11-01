@@ -38,7 +38,7 @@ jobs:
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+      uses: gradle/actions/setup-gradle@v4.1.0
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
@@ -85,6 +85,8 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
         build-args: |
           JAR_FILE=build/libs/demo-0.0.1-SNAPSHOT.jar
 
@@ -101,6 +103,7 @@ jobs:
         image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
         format: 'cyclonedx-json'
         output-file: 'image.cdx.json'
+        dependency-snapshot: true
 
     - name: Generate Image SBOM Attestation
       uses: actions/attest-sbom@v1
@@ -110,27 +113,6 @@ jobs:
         subject-digest: ${{ steps.push.outputs.digest }}
         sbom-path: 'image.cdx.json'
         push-to-registry: true
-
-    # Install the cosign tool except on PR
-    # https://github.com/sigstore/cosign-installer
-    - name: Install cosign
-      uses: sigstore/cosign-installer@v3.7.0
-      with:
-        cosign-release: 'v2.4.1'
-
-    # Sign the resulting Docker image digest except on PRs.
-    # This will only write to the public Rekor transparency log when the Docker
-    # repository is public to avoid leaking data.  If you would like to publish
-    # transparency data even for private images, pass --force to cosign below.
-    # https://github.com/sigstore/cosign
-    - name: Sign the published Docker image
-      env:
-        # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
-        TAGS: ${{ steps.meta.outputs.tags }}
-        DIGEST: ${{ steps.push.outputs.digest }}
-      # This step uses the identity token to provision an ephemeral certificate
-      # against the sigstore community Fulcio instance.
-      run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
   dependency-submission:
 

@@ -23,7 +23,10 @@ COPY --from=builder /builder/extracted/application/ ./
 
 COPY ./build/reports/application.cdx.json ./
 
-# Start the application jar - this is not the uber jar used by the builder
+# Execute the CDS training run
+RUN java -XX:ArchiveClassesAtExit=application.jsa -Dspring.context.exit=onRefresh -jar application.jar
+
+# Start the application jar with CDS enabled - this is not the uber jar used by the builder
 # This jar only contains application code and references to the extracted jar files
 # This layout is efficient to start up and CDS friendly
-ENTRYPOINT ["java", "-jar", "application.jar"]
+ENTRYPOINT ["java",  "-XX:SharedArchiveFile=application.jsa", "-jar", "application.jar"]

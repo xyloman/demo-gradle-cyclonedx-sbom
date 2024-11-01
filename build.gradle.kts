@@ -1,7 +1,7 @@
 plugins {
     java
     `maven-publish`
-    id("org.springframework.boot") version "3.3.0"
+    id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
     id("org.cyclonedx.bom") version "1.10.0"
 }
@@ -21,7 +21,6 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.keycloak:keycloak-services:24.0.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
