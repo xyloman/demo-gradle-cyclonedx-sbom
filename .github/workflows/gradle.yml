@@ -63,7 +63,9 @@ jobs:
       uses: tj-actions/glob@v22
       id: junitglob
       with:
-        files: build/test-results/test/junit-platform-events-*.xml
+        working-directory: './build/test-results/test'
+        files: |
+          junit-platform-events-*.xml
     - name: Generate Open Testing Attestation
       uses: actions/attest@v1
       with:
