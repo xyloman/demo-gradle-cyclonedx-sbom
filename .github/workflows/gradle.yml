@@ -59,12 +59,12 @@ jobs:
         subject-path: './build/libs/demo-0.0.1-SNAPSHOT.jar'
         sbom-path: './build/reports/application.cdx.json'
 
-    - name: Glob match
+    - name: Find Junit Platform Events
       uses: tj-actions/glob@v22
       id: junit-platform-events-glob
       with:
         files: |
-          ./build/test-results/test/junit-platform-events-*.xml
+          **/junit-platform-events-*.xml
 
     - name: Generate Open Testing Attestation
       uses: actions/attest@v1
