@@ -59,6 +59,13 @@ jobs:
         subject-path: './build/libs/demo-0.0.1-SNAPSHOT.jar'
         sbom-path: './build/reports/application.cdx.json'
 
+    - name: Generate Open Testing Attestation
+      uses: actions/attest@v1
+      with:
+        subject-path: './build/libs/demo-0.0.1-SNAPSHOT.jar'
+        predicate-type: 'https://schemas.opentest4j.org/reporting'
+        predicate-path: './build/test-results/test/junit-platform-events-*.xml'
+
     - name: Verify JAR attestation
       run: gh attestation verify build/libs/demo-0.0.1-SNAPSHOT.jar --repo ${{ github.repository }}
       env:

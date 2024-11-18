@@ -23,10 +23,21 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("org.junit.platform:junit-platform-reporting")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.withType<Test>().configureEach {
+    val outputDir = reports.junitXml.outputLocation
+    jvmArgumentProviders += CommandLineArgumentProvider {
+        listOf(
+            "-Djunit.platform.reporting.open.xml.enabled=true",
+            "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}"
+        )
+    }
 }
 
 
