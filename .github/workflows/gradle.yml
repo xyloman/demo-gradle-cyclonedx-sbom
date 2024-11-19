@@ -68,7 +68,7 @@ jobs:
           junit-platform-events-*.xml
     - name: Find and Base64 encode Junit Platform Events
       id: junitevents
-      run: content=$(base64 -i ./build/test-results/test/junit-platform-events-*.xml) >> "$GITHUB_OUTPUT"
+      run: content="$(cat ./build/test-results/test/junit-platform-events-*.xml | base64 -w 0)" >> "$GITHUB_OUTPUT"
     - name: Generate Open Testing Attestation
       uses: actions/attest@v1
       with:
