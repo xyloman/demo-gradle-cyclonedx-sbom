@@ -26,5 +26,3 @@ jobs:
       env:
         ACTIONS_STEP_DEBUG: true
       run: echo ${ID_TOKEN} >> token.txt
-    - name: run tmate
-      uses: mxschmitt/action-tmate@v2
