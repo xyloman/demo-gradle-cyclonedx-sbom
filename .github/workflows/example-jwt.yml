@@ -23,5 +23,4 @@ jobs:
           let id_token = await coredemo.getIDToken()
           coredemo.setOutput('id_token', id_token)
     - name: Summarize ID Token Details
-      run:
-        echo "idToken=${id_token}" >> $GITHUB_SUMMARY
+      run: echo "${id_token}"
