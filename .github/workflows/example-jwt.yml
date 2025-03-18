@@ -24,4 +24,4 @@ jobs:
           coredemo.setOutput('id_token', id_token)
     - name: Summarize ID Token Details
       run:
-        echo "idToken=${id_token}"  >> $GITHUB_SUMMARY
+        echo "idToken=${id_token}" >> $GITHUB_SUMMARY
