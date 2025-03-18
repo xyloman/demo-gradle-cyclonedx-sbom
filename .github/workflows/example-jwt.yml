@@ -23,4 +23,6 @@ jobs:
           let id_token = await coredemo.getIDToken()
           core.exportVariable("ID_TOKEN", id_token)
     - name: Read ID Token from environment
+      env:
+        ACTIONS_STEP_DEBUG: true
       run: echo ${{ env.ID_TOKEN }}
