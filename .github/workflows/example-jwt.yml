@@ -16,4 +16,4 @@ jobs:
     - name: Post Token
       run: |
         OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=cavendish.xylonet.us" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
-        curl -i -s -H "Authoriziation: Bearer $OIDC_TOKEN" https://cavendish.xylonet.io/actuator/health
+        curl -i -s -H "Authoriziation: Bearer $OIDC_TOKEN" https://cavendish.xylonet.us/actuator/health
