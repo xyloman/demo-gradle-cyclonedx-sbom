@@ -16,4 +16,7 @@ jobs:
     - name: Post Token
       run: |
         OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=cavendish.xylonet.us" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
-        curl -v -i -s -H "Authorization: Bearer $OIDC_TOKEN" https://cavendish.xylonet.us/actuator/health
+        curl -v -i -s \
+          -H "Authorization: Bearer $OIDC_TOKEN"
+          https://cavendish.xylonet.us/invalid/packages/maven/com.example/webapp/1.2.3/attestations \
+          -d "sha256=invalid"
