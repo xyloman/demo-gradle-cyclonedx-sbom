@@ -18,5 +18,6 @@ jobs:
       contents: read  # This is required for actions/checkout
 
     steps:
-    - with:
+    - uses: docker://registry.xylonet.us/cavendish:latest
+      with:
         entrypoint: /cnb/process/web --spring.main.web-application-type=none
