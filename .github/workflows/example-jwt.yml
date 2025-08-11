@@ -6,14 +6,11 @@ on:
 
 jobs:
   jwt:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
+    container: registry.xylonet.us/cavendish:latest
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read  # This is required for actions/checkout
 
     steps:
-    - uses: actions/checkout@main
-    - name: Post Token
-      run: |
-        OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=cavendish.xylonet.us" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
-        curl --fail-with-body -v -i -s -H "Authorization: Bearer $OIDC_TOKEN" https://cavendish.xylonet.us/invalid/packages/maven/com.example/webapp/1.2.3/attestations -d "sha256=invalid"
+    - run: --spring.main.web-application-type=none
