@@ -18,4 +18,5 @@ jobs:
       contents: read  # This is required for actions/checkout
 
     steps:
-    - run: /cnb/process/web --spring.main.web-application-type=none
+    - with:
+        entrypoint: /cnb/process/web --spring.main.web-application-type=none
