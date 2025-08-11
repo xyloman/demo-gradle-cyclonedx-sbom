@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-24.04-arm
     container: 
       image: registry.xylonet.us/cavendish:latest
+      options: --entrypoint /cnb/process/web
       credentials:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+        
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read  # This is required for actions/checkout
