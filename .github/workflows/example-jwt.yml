@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-24.04-arm
     container: 
       image: registry.xylonet.us/cavendish:latest
-      options: --entrypoint /cnb/process/web
       credentials:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
@@ -19,4 +18,4 @@ jobs:
       contents: read  # This is required for actions/checkout
 
     steps:
-    - run: --spring.main.web-application-type=none
+    - run: /cnb/process/web --spring.main.web-application-type=none
